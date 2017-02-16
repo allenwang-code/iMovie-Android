@@ -18,6 +18,8 @@ import allenwang.imovie.Constant;
 import allenwang.imovie.R;
 import allenwang.imovie.model.MovieList;
 import allenwang.imovie.model.Result;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
@@ -96,16 +98,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     // inner class to hold a reference to each item of RecyclerView
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtViewTitle;
-        public TextView txtViewContent;
-        public ImageView imgViewPoster;
+        @BindView(R.id.title) TextView txtViewTitle;
+        @BindView(R.id.content) TextView txtViewContent;
+        @BindView(R.id.imageView) ImageView imgViewPoster;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
+            ButterKnife.bind(this, itemLayoutView);
             itemLayoutView.setOnClickListener(this);
-            txtViewTitle = (TextView) itemLayoutView.findViewById(R.id.title);
-            txtViewContent = (TextView) itemLayoutView.findViewById(R.id.content);
-            imgViewPoster = (ImageView) itemLayoutView.findViewById(R.id.imageView);
         }
 
         @Override

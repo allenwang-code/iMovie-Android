@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    >
 
     <ImageView
         android:layout_weight="2"
@@ -20,6 +22,7 @@
 
         <TextView
             android:text="Movie Name"
+            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/title"
@@ -37,6 +40,7 @@
             android:text="longlonglonglonglonglong
             longlonglonglonglonglonglonglonglong
             longlonglonglonglongContent"
+            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

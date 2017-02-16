@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 import allenwang.imovie.model.MovieList;
 import allenwang.imovie.network.Api;
 import allenwang.imovie.recycle_view.Adapter;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -21,14 +23,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView list;
+    @BindView(R.id.main_list) RecyclerView list;
     private Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        list = (RecyclerView) findViewById(R.id.main_list);
+        ButterKnife.bind(this);
 
         adapter = new Adapter();
         list.setAdapter(adapter);
