@@ -1,5 +1,7 @@
 package allenwang.imovie.recycle_view;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,18 +63,28 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
         String posterUrl = Constant.IMAGE_URL + results.get(position).getPosterPath();
+        String backdropUrl = Constant.IMAGE_URL + results.get(position).getBackdropPath();
 
 
         viewHolder.txtViewTitle.setText(movies.getResults().get(position).getOriginalTitle());
         viewHolder.txtViewContent.setText(movies.getResults().get(position).getOverview());
-        Picasso.with(viewHolder.imgViewPoster.getContext()).cancelRequest(viewHolder.imgViewPoster);
-        Picasso.with(viewHolder.imgViewPoster.getContext())
-                .load(posterUrl)
-                .placeholder(R.drawable.default_movie)
-                .transform(new RoundedCornersTransformation(10, 10))
-                .into(viewHolder.imgViewPoster);
 
-
+        Context context = viewHolder.imgViewPoster.getContext();
+        Picasso.with(context).cancelRequest(viewHolder.imgViewPoster);
+        int orientation = context.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Picasso.with(context)
+                    .load(posterUrl)
+                    .placeholder(R.drawable.default_movie)
+                    .transform(new RoundedCornersTransformation(10, 10))
+                    .into(viewHolder.imgViewPoster);
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Picasso.with(context)
+                    .load(backdropUrl)
+                    .placeholder(R.drawable.default_movie)
+                    .transform(new RoundedCornersTransformation(10, 10))
+                    .into(viewHolder.imgViewPoster);
+        }
     }
 
     // Return the size of your itemsData (invoked by the layout manager)
