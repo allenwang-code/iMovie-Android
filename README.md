@@ -2,7 +2,7 @@
 
 iMovie-Android shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: ? hours spent in total
+Time spent: 1.5 hours spent in total
 
 ## User Stories
 
@@ -39,7 +39,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://dl.dropboxusercontent.com/s/og7go7zr2c5yevk/9439267B-51C1-464F-8757-F5319EE71ED8-66262-00005127E4D88FB7.gif?dl=0' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -49,8 +49,11 @@ Describe any challenges encountered while building the app.
 
 ## Open-source libraries used
 
-- [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
-- [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [OkHTTP]
+- [Retrofit]
+- [Butterknife]
+- [gson]
+- [Picasso]
 
 ## License
 
