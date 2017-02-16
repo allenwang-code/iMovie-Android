@@ -2,12 +2,15 @@ package allenwang.imovie;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
 import allenwang.imovie.model.MovieList;
 import allenwang.imovie.network.Api;
+import allenwang.imovie.recycle_view.Adapter;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -18,15 +21,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    private RecyclerView list;
+    private Adapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        list = (RecyclerView) findViewById(R.id.main_list);
 
-//        RecyclerView list = (RecyclerView) findViewById(R.id.main_list);
-//        Adapter adapter = new Adapter(new MovieList());
-//        list.setAdapter(adapter);
-//        list.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new Adapter();
+        list.setAdapter(adapter);
+        list.setLayoutManager(new LinearLayoutManager(this));
 
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
                 .connectTimeout(10, TimeUnit.SECONDS)//设置超时时间
@@ -48,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                 Log.e("", "response---->" + response.body());
+                adapter.updateData(response.body());
+                adapter.notifyDataSetChanged();
             }
 
             @Override

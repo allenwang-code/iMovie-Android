@@ -12,18 +12,25 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import allenwang.imovie.Constant;
 import allenwang.imovie.R;
 import allenwang.imovie.model.MovieList;
 import allenwang.imovie.model.Result;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * Created by allenwang on 2017/2/15.
  */
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-    private ArrayList<MovieList> lists = new ArrayList<>();
+    private ArrayList<MovieList> lists = new ArrayList<>(); // not used
     private MovieList movies = new MovieList();
     private ArrayList<Result> results;
+
+    public Adapter() {
+        movies.setResults(new ArrayList<Result>());
+        results = new ArrayList<>();
+    }
 
     public Adapter(ArrayList<MovieList> movies) {
         this.lists = movies;
@@ -33,6 +40,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         this.movies = movies;
         this.results = (ArrayList<Result>) movies.getResults();
     }
+
+    public void updateData(MovieList movieList) {
+        this.movies = movieList;
+        this.results = (ArrayList<Result>) movieList.getResults();
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -47,11 +60,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
+        String posterUrl = Constant.IMAGE_URL + results.get(position).getPosterPath();
+
+
         viewHolder.txtViewTitle.setText(movies.getResults().get(position).getOriginalTitle());
-        viewHolder.txtViewTitle.setText(movies.getResults().get(position).getOverview());
+        viewHolder.txtViewContent.setText(movies.getResults().get(position).getOverview());
         Picasso.with(viewHolder.imgViewPoster.getContext()).cancelRequest(viewHolder.imgViewPoster);
         Picasso.with(viewHolder.imgViewPoster.getContext())
-                .load(results.get(position).getPosterPath()).into(viewHolder.imgViewPoster);
+                .load(posterUrl)
+                .placeholder(R.drawable.default_movie)
+                .transform(new RoundedCornersTransformation(10, 10))
+                .into(viewHolder.imgViewPoster);
+
+
     }
 
     // Return the size of your itemsData (invoked by the layout manager)
